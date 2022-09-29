@@ -1,5 +1,8 @@
 /**
  * 基础类
+ * 泛型表示算法入参的 Rest Parameters
+ * 如果入参是一个数组，则 T 要表示成 [number[]]
+ * 如果入参是无数个number, 则 T 要表示成 number[]
  */
 
 abstract class AlgoQuirks<T extends any[]> {
@@ -34,28 +37,17 @@ abstract class AlgoQuirks<T extends any[]> {
 
     public print(){
         this.result.forEach((res)=>{
-            console.log(res.ingredient, res.result, res.main, res.reference)
+            console.log('res.ingredients')
+            console.log(res.ingredient)
+            console.log('res.result')
+            console.log(res.result)
+            console.log('res.main')
+            console.log(res.main)
+            console.log('res.reference')
+            console.log(res.reference)
+            console.log('------')
         })
     }
 }
 
-
-// class P extends AlgoQuirks<[string, number]> {
-//     public ingredientMaker (){
-//         return [Math.random().toString(), Math.random()] as [string, number];
-//     }
-
-//     public main(a: string, b : number){
-//         return [a,b]
-//     }
-
-//     public reference(a: string, b : number){
-//         return [a+1,b]
-//     }
-// }
-
-// const d = new P();
-
-// const a = d.run(10);
-
-// d.print();
+export = AlgoQuirks

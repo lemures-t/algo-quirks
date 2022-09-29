@@ -1,3 +1,6 @@
+import AlgoQuirks = require('../AlgoQuirks');
+
+
 /**
  * 单调栈
  */
@@ -28,7 +31,6 @@ function lastLargeNum (arr: number[]) : number[]{
         }
         stack.push([i])
     }
-    debugger
     while(stack.length){
         const topArr = stack.pop();
         res[topArr![0]] = -1;
@@ -36,6 +38,43 @@ function lastLargeNum (arr: number[]) : number[]{
     return res;
 
 }
-const r = lastLargeNum([1,5,8,2,4,4,9,6])
-console.log(r);
+class Quirks extends AlgoQuirks<[number[]]> {
+    
+	public ingredientMaker(){
+		const len = parseInt((Math.random() * Math.pow(10, 3)).toString(), 10);
+		const arr : number[]= new Array(len);
+		for (let i = 0 ; i < len; i++){
+				arr[i] = parseInt((Math.random() * Math.pow(10, 3)).toString(), 10)
+		}
+		return [arr] as [number[]]
+	}
 
+	public main(ingredient : number[]){
+		return lastLargeNum(ingredient)
+	}
+
+	public reference(ingredient: number[]){
+		const res : number[] = []
+		for (let i = 0; i < ingredient.length; i++){
+				const target = ingredient[i];
+				for (let j = i+1; j < ingredient.length; j++){
+						const num = ingredient[j];
+						if (num > target){
+								res.push(num)
+								break;
+						}
+				}
+				if (res.length - 1 !== i){
+						res.push(-1);
+				}
+		}
+		return res;
+	}
+
+}
+
+const quirks = new Quirks();
+
+
+quirks.run()
+quirks.print();
