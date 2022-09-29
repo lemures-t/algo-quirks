@@ -6,7 +6,7 @@
   "scripts": {
     "test": "n"
   },
-  "repository": "n",
+  "repository": "https://github.com/lemures-t/algo-quirks.git",
   "keywords": [
     "algorithms",
     "test"
