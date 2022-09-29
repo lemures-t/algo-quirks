@@ -10,8 +10,10 @@
             "name": "Launch Debugging",
             "runtimeExecutable":"node",
             "runtimeArgs": [
-                "-r",
-                "./build/moduleInPnP/ts-node-register"
+                "--require",
+                "./.pnp.cjs",
+                "--require",
+                "ts-node/register"
               ],
             "skipFiles": [
                 "<node_internals>/**"
