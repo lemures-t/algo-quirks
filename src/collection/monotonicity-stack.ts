@@ -8,7 +8,12 @@ import AlgoQuirks = require('../AlgoQuirks');
 function lastLargeNum (arr: number[]) : number[]{
     const res = new Array(arr.length);
     res.fill(-1);
+    res.forEach(()=>{
 
+    })
+
+    // 这里单调栈是一个二维数组，内部存储的数组是用于合并arr中有重复数字的情况
+    // 如果题目中给到的 arr 没有重复数字，用一位数组构建单调栈即可
     const stack : number[][]= [];
 
     for (let i = 0; i < arr.length; i++){

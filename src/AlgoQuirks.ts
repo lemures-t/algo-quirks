@@ -38,7 +38,7 @@ abstract class AlgoQuirks<T extends any[]> {
     public print(){
         this.result.forEach((res)=>{
             console.log('res.ingredients')
-            console.log(res.ingredient)
+            console.log(res.ingredient.toString())
             console.log('res.result')
             console.log(res.result)
             console.log('res.main')
