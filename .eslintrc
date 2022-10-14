@@ -1,0 +1,18 @@
+{
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [2, { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "@typescript-eslint/interface-name-prefix": 0,
+    "prettier/prettier": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
+}
