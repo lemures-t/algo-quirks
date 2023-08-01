@@ -81,5 +81,4 @@ class Quirks extends AlgoQuirks<[number[]]> {
 const quirks = new Quirks();
 
 
-quirks.run()
-quirks.print();
+quirks.runWithRef()

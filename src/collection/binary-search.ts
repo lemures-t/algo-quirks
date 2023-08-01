@@ -1,7 +1,7 @@
 import AlgoQuirks = require("../AlgoQuirks");
 
 
-class BinarySerch extends AlgoQuirks<[number[], number]>{
+class BinarySerch extends AlgoQuirks<[number[], number], number>{
 
 
   public ingredientMaker(): [number[], number] {
@@ -91,5 +91,4 @@ class BinarySerch extends AlgoQuirks<[number[], number]>{
 
 const binarySearch = new BinarySerch();
 
-binarySearch.run(20)
-binarySearch.print();
+binarySearch.runWithRef(20, false)
