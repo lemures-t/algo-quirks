@@ -46,7 +46,7 @@ class Quirks extends AlgoQuirks<IParam, IReturn> {
         if (i + 1 > max_i){
           j++;
         }
-        // 到左边了
+        // 到左边了, j++ 之后 j - 1 不可能 < 0
         if (j - 1 < 0){
           i++;  
         }
@@ -62,7 +62,7 @@ class Quirks extends AlgoQuirks<IParam, IReturn> {
         if (j + 1 > max_j){
           i++;
         }
-        // 到上边了
+        // 到上边了, i++ 之后，i - 1 不可能小于 0
         if(i - 1 < 0){
           j++;
         }
