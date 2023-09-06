@@ -8,22 +8,22 @@ class Quirks extends AlgoQuirks<IParam, IReturn> {
     return ['', 1] as IParam
   }
 
-  public main(args_0: string, args_1: number): void {
+  public main(args_0: IParam[0], args_1: IParam[1]): IReturn {
       
   }
   
 
-  public reference(...ingredient: IParam) {
+  public reference(...ingredient: IParam): IReturn {
     const args_0 = ingredient[0]
     const args_1 = ingredient[1]
   }
 
-  public comparator(res: void, args_0: string, args_1: number): boolean {
+  public comparator(res: IReturn, time: number, args_0: IParam[0], args_1: IParam[1]): boolean {
     return false
   }
 }
 
 const quirks = new Quirks();
 
-quirks.runWithRef(1);
+quirks.runTest(1);
 

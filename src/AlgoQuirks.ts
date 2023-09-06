@@ -72,7 +72,16 @@ abstract class AlgoQuirks<T extends unknown[], U extends unknown> {
 	abstract ingredientMaker(time?: number) : T
 
 	abstract main(...args: T) : U
-	abstract comparator(res: U, ...args: T): boolean
+	
+	/**
+	 * 在没有等效的 ref 方法可以实现算法的情况下，根据 main 的结果手动 check 结果是否正确
+	 * @res 其他方法，在 args 参数下返回的结果，
+	 * @args 入参数
+	 * @return 对应入参情况下，res 的结果是否正确
+	 * 
+	 * runMainWithComparator 需要实现 comparator 方法
+	 */
+	abstract comparator(res: U, time:number, ...args: T): boolean
 
 	abstract reference(...args: T): U
 
@@ -100,7 +109,7 @@ abstract class AlgoQuirks<T extends unknown[], U extends unknown> {
 
 	}
 
-	public async runWithRef(time: number = 1, options: {printLog: boolean} = {printLog : true}){
+	public async runTest(time: number = 1, options: {printLog: boolean} = {printLog : true}){
 			
 		let final = true
 
@@ -141,7 +150,7 @@ abstract class AlgoQuirks<T extends unknown[], U extends unknown> {
 		for (let i = 0; i < time; i++){
 			const args = this.ingredientMaker(i)
 			const res = await this.main.apply(this, deepClone(args))
-			const passed = await this.comparator.apply(this, [res, ...deepClone(args)]);
+			const passed = await this.comparator.apply(this, [res, i, ...deepClone(args)]);
 			
 			if (options.printLog){
 				console.log('res.ingredients')
