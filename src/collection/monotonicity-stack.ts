@@ -41,7 +41,7 @@ function lastLargeNum(arr: number[]): number[] {
 class Quirks extends AlgoQuirks<[number[]]> {
   public ingredientMaker() {
     const len = parseInt((Math.random() * Math.pow(10, 3)).toString(), 10);
-    const arr: number[] = new Array(len);
+    const arr: number[] = ngew Array(len);
     for (let i = 0; i < len; i++) {
       arr[i] = parseInt((Math.random() * Math.pow(10, 3)).toString(), 10);
     }
@@ -73,5 +73,5 @@ class Quirks extends AlgoQuirks<[number[]]> {
 
 const quirks = new Quirks();
 
-quirks.run(10);
-quirks.print();
+
+quirks.runWithRef()

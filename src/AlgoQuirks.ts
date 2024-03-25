@@ -1,3 +1,62 @@
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getPrototypeOf
+
+// obj 如果是 class A 的实例，Object.getPrototypeOf(obj) 是 A;
+// Object.getPrototypeOf(A) 是一个类 A 的构造函数 f
+// Object.getPrototypeOf(f) 是一个最基础的对象构造器 o
+// Object.getPrototypeOf(o) 是 null
+// 所以 Object.getPrototypeOf(obj) !== o
+
+// obj 如果是 {} 字面量，Object.getPrototypeOf(obj) 是一个最基础的对象构造器 o
+// Object.getPrototypeOf(o) 是 null
+// 所以 Object.getPrototypeOf(obj) === o
+function isPlainObject(obj: unknown) {
+    if (typeof obj !== 'object' || obj === null) return false
+
+    let proto = obj
+    while (Object.getPrototypeOf(proto) !== null) {
+        proto = Object.getPrototypeOf(proto)
+    }
+
+    return Object.getPrototypeOf(obj) === proto
+}
+
+
+function deepClone<T extends unknown>(o: T) : T{
+
+	const clonedMap = new WeakMap()
+
+	function clone(target: unknown){
+		
+		if (Object.prototype.toString.call(target) === '[object Array]'){
+			const _o = target as unknown[];
+			if (clonedMap.get(_o)) return target;
+			clonedMap.set(_o, true)
+			const arr : unknown[] = []
+			for (let i = 0; i < (_o).length; i++){
+				arr.push(clone(_o[i]))
+			}
+			return arr
+		}
+		
+		if (Object.prototype.toString.call(target) === '[object Object]'){
+			const _o = target as any;
+			if (clonedMap.get(_o)) return target;
+			clonedMap.set(_o, true)
+			const obj : any = {}
+			for (const key in _o){
+				if (!_o.hasOwnProperty(key)) continue
+				obj[key] = clone(_o[key]);
+			}
+			return obj
+		}
+
+		return target
+	}
+	
+	return clone(o)
+
+}
+
 /**
  * 基础类
  * 泛型表示算法入参的 Rest Parameters
@@ -5,17 +64,13 @@
  * 如果入参是无数个number, 则 T 要表示成 number[]
  */
 
-abstract class AlgoQuirks<T extends any[]> {
 
-    private result : Array<{ingredient: T, main: any, reference: any, result: boolean}> = [] // ReturnType<this["main"]>
+abstract class AlgoQuirks<T extends unknown[], U extends unknown> {
 
-    abstract ingredientMaker() : T
+	private result : Array<{ingredient: T, main: U, reference?: U, result: boolean}> = [] // ReturnType<this["main"]>
 
-    abstract main(...args: T) : any
+	abstract ingredientMaker(time?: number) : T
 
-<<<<<<< Updated upstream
-    abstract reference(...args: T): any
-=======
 	abstract main(...args: T) : U
 	
 	/**
@@ -27,15 +82,9 @@ abstract class AlgoQuirks<T extends any[]> {
 	 * runMainWithComparator 需要实现 comparator 方法
 	 */
 	abstract comparator(res: U, time:number, ...args: T): boolean
->>>>>>> Stashed changes
 
-    private checker(...ingredients: T): [ReturnType<this["main"]>, ReturnType<this["reference"]>, boolean]{
-        const a = this.main(...ingredients);
-        const b = this.reference(...ingredients);
-        return [a, b, a.toString() === b.toString()];
-    }
+	abstract reference(...args: T): U
 
-<<<<<<< Updated upstream
     public run(time: number = 1){
         for (let i = 0; i < time; i++){
             const args = this.ingredientMaker()
@@ -49,7 +98,6 @@ abstract class AlgoQuirks<T extends any[]> {
         }
         return this.result;
     }
-=======
 	private async checker(...ingredients: T): Promise<[U, U, boolean]>{
 		const a = await this.main(...deepClone(ingredients));
 		const b = await this.reference(...deepClone(ingredients));
@@ -190,21 +238,7 @@ abstract class AlgoQuirks<T extends any[]> {
 		}
 	
 	}
->>>>>>> Stashed changes
 
-    public print(){
-        this.result.forEach((res)=>{
-            console.log('res.ingredients')
-            console.log(res.ingredient.toString())
-            console.log('res.result')
-            console.log(res.result)
-            console.log('res.main')
-            console.log(res.main)
-            console.log('res.reference')
-            console.log(res.reference)
-            console.log('------')
-        })
-    }
 }
 
 export = AlgoQuirks
