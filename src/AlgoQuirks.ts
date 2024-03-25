@@ -85,10 +85,10 @@ abstract class AlgoQuirks<T extends unknown[], U extends unknown> {
 
 	abstract reference(...args: T): U
 
-    public run(time: number = 1){
+    public async run(time: number = 1){
         for (let i = 0; i < time; i++){
             const args = this.ingredientMaker()
-            const res = this.checker.apply(this, args);
+            const res = await this.checker.apply(this, args);
             this.result.push({
                 ingredient: args,
                 main: res[0],

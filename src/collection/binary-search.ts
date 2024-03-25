@@ -87,8 +87,13 @@ class BinarySerch extends AlgoQuirks<[number[], number], number>{
     }
     return -1;
   }
+  public comparator(res: number, time:number, ...args: [number[], number]): boolean {
+    return true;
+  }
 }
+
+
 
 const binarySearch = new BinarySerch();
 
-binarySearch.runWithRef(20, false)
+binarySearch.runRef(20, {printLog: false})
